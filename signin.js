@@ -1,5 +1,4 @@
-// import { api } from "./api.js";
-const api = 'http://localhost:9000'
+import { api } from "./api.js";
 
 console.log(api);
 
