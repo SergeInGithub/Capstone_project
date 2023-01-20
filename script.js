@@ -1,4 +1,4 @@
-const api = "http://localhost:9000";
+import { api } from "./api.js";
 
 const form = document.querySelector("#form2");
 const username = document.querySelector("#form-name");
