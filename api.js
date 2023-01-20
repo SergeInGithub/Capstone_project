@@ -1,3 +1,3 @@
-const api = 'http://localhost:9000'
+const api = 'https://sore-plum-spider-kilt.cyclic.app'
 
 export{api}
