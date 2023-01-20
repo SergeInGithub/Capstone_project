@@ -2,10 +2,10 @@ import { api } from "./api.js";
 
 console.log(api);
 
-const form = document.querySelector('#form');
-let fullName = document.querySelector('#fullName');
-let email = document.querySelector('#email');
-let password = document.querySelector('#password');
+const form = document.querySelector("#form");
+let fullName = document.querySelector("#fullName");
+let email = document.querySelector("#email");
+let password = document.querySelector("#password");
 
 // // logic to store users
 // let currentUser = null
@@ -18,7 +18,7 @@ let password = document.querySelector('#password');
 // let id = users.length
 function setCookie(name, value, expirationTime) {
   const date = new Date();
-  date.setTime(date.getTime() + (expirationTime * 24 * 60 * 60 * 1000));
+  date.setTime(date.getTime() + expirationTime * 24 * 60 * 60 * 1000);
   const willExpire = `willExpire = ${date.toUTCString()}`;
   document.cookie = `${name}=${value}=${willExpire};path=/`;
 }
@@ -27,23 +27,22 @@ function setCookie(name, value, expirationTime) {
 async function addOfData(fullName, email, password) {
   try {
     const response = await fetch(`${api}/auth/register`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json",
       },
-      body: JSON.stringify({fullName, email, password})
-    })
-    const data = await response.json()
-    .then(data => {
-      if(data.fullName){
-        window.location.href='./index.html'
+      body: JSON.stringify({ fullName, email, password }),
+    });
+    const data = await response.json().then((data) => {
+      if (data.fullName) {
+        location.href = "/index.html";
       }
-      if(data.success == false){
-        document.querySelector('#result').innerHTML = data.message
+      if (data.success == false) {
+        document.querySelector("#result").innerHTML = data.message;
       }
-    })
+    });
   } catch (error) {
-    console.log('Error signing in a user: ', error.message)
+    console.log("Error signing in a user: ", error.message);
   }
   // const users = JSON.parse(localStorage.getItem("users")) ?? [{
   //   id: 0,
@@ -53,7 +52,6 @@ async function addOfData(fullName, email, password) {
   // }]
   // let isGenuine = localStorage.getItem("isGenuine", "true")
   // let id = users.length
-
 
   // currentUser = {
   //   id: id,
@@ -70,74 +68,71 @@ async function addOfData(fullName, email, password) {
   // } else {
   //   location.href = "index.html"
   // }
-
 }
 
-
-
-
 // my old js
-form.addEventListener('submit', e => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const fullName = form.fullName.value
-  const email = form.email.value
-  const password = form.password.value
+  const fullName = form.fullName.value;
+  const email = form.email.value;
+  const password = form.password.value;
   // console.log(fullName, email, password);
   validateInputs() && addOfData(fullName, email, password);
 });
 
 const theError = (element, message) => {
   const inputField = element.parentElement;
-  const errorView = inputField.querySelector('.error-div');
+  const errorView = inputField.querySelector(".error-div");
 
   errorView.innerText = message;
-  inputField.classList.add('error');
-  inputField.classList.remove('success');
-}
+  inputField.classList.add("error");
+  inputField.classList.remove("success");
+};
 
-const theSuccess = element => {
+const theSuccess = (element) => {
   const inputField = element.parentElement;
-  const errorView = inputField.querySelector('.error-div');
+  const errorView = inputField.querySelector(".error-div");
 
-  errorView.innerText = '';
-  inputField.classList.add('success');
-  inputField.classList.remove('error');
-}
+  errorView.innerText = "";
+  inputField.classList.add("success");
+  inputField.classList.remove("error");
+};
 
-const isValidEmail = email => {
-  const check = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const isValidEmail = (email) => {
+  const check =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return check.test(String(email).toLowerCase());
-}
+};
 
 const validateInputs = () => {
   const fullNameValue = fullName.value.trim();
   const emailValue = email.value.trim();
   const passwordValue = password.value.trim();
 
-  if (fullNameValue === '') {
-    theError(fullName, 'fullName is required.');
+  if (fullNameValue === "") {
+    theError(fullName, "fullName is required.");
     // return false;
   } else {
     theSuccess(fullName);
     // return true;
   }
 
-  if (emailValue === '') {
-    theError(email, 'Email is required');
+  if (emailValue === "") {
+    theError(email, "Email is required");
     // return false;
   } else if (!isValidEmail(emailValue)) {
-    theError(email, 'Please provide a valid email address.');
+    theError(email, "Please provide a valid email address.");
     // return false;
   } else {
     theSuccess(email);
     // return true;
   }
 
-  if (passwordValue === '') {
-    theError(password, 'Password is required');
+  if (passwordValue === "") {
+    theError(password, "Password is required");
     // return false;
   } else if (passwordValue.length < 8) {
-    theError(password, 'Password must be at least 8 charachters.');
+    theError(password, "Password must be at least 8 charachters.");
     // return false;
   } else {
     theSuccess(password);
@@ -152,5 +147,4 @@ const validateInputs = () => {
   } else {
     return false;
   }
-
 };
