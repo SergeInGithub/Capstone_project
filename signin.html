@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- <script>
+            const user = JSON.parse(localStorage.getItem("users"))
+            if(user) {
+                history.back()
+            }
+        </script> -->
+    <link rel="stylesheet" href="signin.css">
+  </head>
+  <body>
+
+    <div class="outter-container">
+      <form id="form" class="" action="index.html" method="post">
+        <h1>LOGIN Account</h1>
+        <!-- <div class="input-field">
+          <label for="username">Username</label>
+          <input id="username" type="text" name="username" value="">
+          <div class="error-div">
+
+          </div>
+        </div> -->
+        <div class="input-field">
+          <label for="email">Email</label>
+          <input id="email" type="text" name="email" value="">
+          <div class="error-div">
+
+          </div>
+        </div>
+        <div class="input-field">
+          <label for="password">Password</label>
+          <input id="password" type="text" name="password" value="">
+          <div class="error-div">
+
+          </div>
+        </div>
+        <div id="result"></div>
+        <button type="submit" name="button">Login</button>
+        <div class="acc">
+          <span>Need an account?</span><a class="sign-up"href="signup.html"> Sign Up</a>
+        </div>
+      </form>
+    </div>
+
+
+    <script type="text/javascript" src="signin.js" type="module" charset="utf-8"></script>
+  </body>
+</html>

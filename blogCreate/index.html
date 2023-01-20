@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="outter-div">
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Create Blog</button>
+
+    <!-- The modal -->
+
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="form" >
+          <input type="file" id="image" name="image">
+        <div class="img-1" id="img-1">
+          <img src="" id="previewImage" class="previewImage" alt="">
+        </div>
+        <div class="create">
+            <div class="input-field">
+              <input id="title" type="text" placeholder="Title" name="title" value="">
+              <div class="error-div">
+
+              </div>
+            </div>
+            <!-- <div class="input-field">
+              <input id="topic" type="text" placeholder="Topic" name="topic" value="">
+              <div class="error-div">
+
+              </div>
+            </div> -->
+            <!-- <div class="input-field">
+              <input id="lang" type="text" placeholder="Language" name="lang" value="">
+              <div class="error-div">
+
+              </div>
+            </div> -->
+            <div class="input-field">
+              <textarea id="content" name="content" placeholder="Content" rows="8" cols="80"></textarea>
+              <div class="error-div">
+
+              </div>
+            </div>
+            <button type="submit" name="button">Publish</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Table section -->
+
+    <div class="table-div">
+      <table>
+        <tr>
+          <th>No</th>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Language</th>
+          <th>Topic</th>
+          <th>Actions</th>
+        </tr>
+        <tbody id="t-body">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script type="module" src="renderBlogs.js" charset="utf-8"></script>
+  <script type="module" src="createBlog.js" charset="utf-8"></script>
+  <script src="adminCheck.js"></script>
+</body>
+
+</html>
