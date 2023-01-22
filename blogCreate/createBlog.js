@@ -1,80 +1,73 @@
-import { api } from '../api.js'
+import { api } from "../api.js";
 
-
-const createArticle = async (title, content) => {
+const createArticle = async (cover, title, content) => {
   try {
     const response = await fetch(`${api}/post/create`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'content-type': 'application/json',
-        Authorization: `JWT ${localStorage.getItem('authToken')}`
-        
+        "content-type": "application/json",
+        Authorization: `JWT ${localStorage.getItem("authToken")}`,
       },
-      body: JSON.stringify({title, content})
-    })
-    const data = await response.json()
+      body: JSON.stringify({ cover, title, content }),
+    });
+    const data = await response.json();
     if (data) {
-      location.reload()
+      location.reload();
     } else {
-      alert('Error creating blog')
+      alert("Error creating blog");
     }
   } catch (error) {
-    console.log('Error creating blog:', error.message);
+    console.log("Error creating blog:", error.message);
   }
-  
-}
+};
 
 // Get the modal
 const modal = document.getElementById("myModal");
 
 // Get the button that opens/deletes the modal
 const btn = document.getElementById("myBtn");
-const deleteBtn = document.querySelector('#deleteBtn');
+const deleteBtn = document.querySelector("#deleteBtn");
 
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal
-btn.onclick = function() {
+btn.onclick = function () {
   modal.style.display = "block";
-}
+};
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+span.onclick = function () {
   modal.style.display = "none";
-}
+};
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}
-
+};
 
 // logic of creating a blog and storing it in local localStorage
-const form = document.querySelector('#form');
-let image = document.querySelector('#image');
+const form = document.querySelector("#form");
+let image = document.querySelector("#image");
 // const title = document.querySelector('#title');
 // const topic = document.querySelector('#topic');
 // const lang = document.querySelector('#lang');
 // const blog = document.querySelector('#blog');
-const previewImage = document.querySelector('#previewImage');
+const previewImage = document.querySelector("#previewImage");
 
-
-image.addEventListener('change', e=> {
+image.addEventListener("change", (e) => {
   uploadImage(e);
-
-})
+});
 
 async function uploadImage(e) {
-  if(e.target.files.length > 0){
+  if (e.target.files.length > 0) {
     image = await readImage(e.target.files[0]);
   }
-
 }
 
-function readImage (file) {
+function readImage(file) {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
@@ -84,23 +77,19 @@ function readImage (file) {
   });
 }
 
-form.addEventListener('submit', e => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  if(validateInputs() == true) {
-
-
-      const title = form.title.value;
-      const content = form.content.value;
-      console.log(title, content);
-    createArticle(title, content);
+  if (validateInputs() == true) {
+    const cover = previewImage.src;
+    const title = form.title.value;
+    const content = form.content.value;
+    console.log(title, content);
+    createArticle(cover, title, content);
     // clearForm();
     // window.location.href = 'index.html';
   }
-
-})
-
-previewImage.src = image;
+});
 
 async function showPreview(event) {
   if (event.target.files.length > 0) {
@@ -109,37 +98,34 @@ async function showPreview(event) {
   }
 }
 
-image.addEventListener('change', e=> {
+image.addEventListener("change", (e) => {
   showPreview(e);
-
-})
+});
 
 function clearForm() {
-  form.title.value = '';
-  form.content.value = '';
+  form.title.value = "";
+  form.content.value = "";
   // lang.value = '';
   // blog.value = '';
-
 }
-
 
 const theError = (element, message) => {
   const inputField = element.parentElement;
-  const errorView = inputField.querySelector('.error-div');
+  const errorView = inputField.querySelector(".error-div");
 
   errorView.innerText = message;
-  inputField.classList.add('error');
-  inputField.classList.remove('success');
-}
+  inputField.classList.add("error");
+  inputField.classList.remove("success");
+};
 
-const theSuccess = element => {
+const theSuccess = (element) => {
   const inputField = element.parentElement;
-  const errorView = inputField.querySelector('.error-div');
+  const errorView = inputField.querySelector(".error-div");
 
-  errorView.innerText = '';
-  inputField.classList.add('success');
-  inputField.classList.remove('error');
-}
+  errorView.innerText = "";
+  inputField.classList.add("success");
+  inputField.classList.remove("error");
+};
 
 const validateInputs = () => {
   const titleValue = form.title.value.trim();
@@ -147,15 +133,15 @@ const validateInputs = () => {
   // const langValue = lang.value.trim();
   // const blogValue = blog.value.trim();
 
-  if (titleValue === '') {
-    theError(title, 'Title is required.');
-  } else{
+  if (titleValue === "") {
+    theError(title, "Title is required.");
+  } else {
     theSuccess(title);
   }
 
-  if (contentValue === '') {
-    theError(content, 'Topic is required');
-  }  else {
+  if (contentValue === "") {
+    theError(content, "Topic is required");
+  } else {
     theSuccess(content);
   }
 
@@ -179,5 +165,4 @@ const validateInputs = () => {
   } else {
     return false;
   }
-
 };

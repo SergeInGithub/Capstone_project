@@ -27,7 +27,7 @@ fetchPosts()
       <tr>
       <td>${index}</td>
       <td>
-      <img src="${item.image}" alt="" srcset="" />
+      <img src="${item.cover}" alt="" srcset="" />
       </td>
       <td>${item.title}</td>
       <td>${item._id}</td>

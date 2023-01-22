@@ -1,10 +1,6 @@
 import { api } from "../api.js";
 
 const newURL = new URL(location.href);
-// let blogData = JSON.parse(window.localStorage.getItem("blogs")) ?? [];
-// const ourBlog = blogData.find(({ id }) => {
-// return id == newURL.hash.replace("#", "");
-// });
 const postId = newURL.hash.replace("#", "");
 
 const getPost = async (id) => {
@@ -18,12 +14,14 @@ const getPost = async (id) => {
 };
 getPost(postId).then((res) => {
   console.log("This is the post: ", res);
+  previewImage.style.display = "block";
+  previewImage.src = res.cover;
   const form = document.querySelector("#form");
   form.title.value = res.title;
   form.content.value = res.content;
 });
 
-const updatePost = async (title, content, postId) => {
+const updatePost = async (cover, title, content, postId) => {
   try {
     const response = await fetch(`${api}/post/update/${postId}`, {
       method: "PATCH",
@@ -31,7 +29,7 @@ const updatePost = async (title, content, postId) => {
         "content-type": "application/json",
         Authorization: `JWT ${localStorage.getItem("authToken")}`,
       },
-      body: JSON.stringify({ title, content }),
+      body: JSON.stringify({ cover, title, content }),
     });
     const data = await response.json();
     if (data) {
@@ -99,12 +97,13 @@ function readImage(file) {
 
 // handle submit
 form.addEventListener("submit", (e) => {
+  const cover = previewImage.src;
   const title = form.title.value;
   const content = form.content.value;
 
   e.preventDefault();
 
-  updatePost(title, content, postId);
+  updatePost(cover, title, content, postId);
 
   // const updatedBlog = blogData.map((item) => {
   //   if (item.id === ourBlog.id) {
