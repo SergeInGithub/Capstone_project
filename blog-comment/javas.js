@@ -68,20 +68,21 @@ fetchOnePost().then((res) => {
     <div class="box-1">
       <p class="j-head">${res.title}</p>
       <p class="j-head-2">${res.createdOn}</p>
-      <!-- <img class="blog-img" src="${res.image}" alt=""> -->
+      <img class="blog-img" src="${res.cover}" alt="">
       <p class="j-head-3">${res.content}</p>
 
-      <div>
+      
+      </div>
+      <div class="like-div">
             <i id="count" class="fa-solid fa-thumbs-up like"></i>
             <p id="like-count">${res.likes.length}</p>
           </div>
-      </div>
       `
   );
 
   viewComments.innerHTML = "";
   res.comments.forEach((item) => {
-    viewComments.innerHTML += `<div>${item.comment}</div>`;
+    viewComments.innerHTML += `<div class="comment-txt">${item.comment}</div>`;
   });
   document.querySelector("#count").addEventListener("click", async (e) => {
     const response = await postLike();
